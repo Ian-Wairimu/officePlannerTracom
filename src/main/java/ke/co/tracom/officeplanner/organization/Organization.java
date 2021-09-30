@@ -1,47 +1,21 @@
 package ke.co.tracom.officeplanner.organization;
 
+import ke.co.tracom.officeplanner.employee.Employee;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import java.util.List;
 
 @Entity
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class Organization {
     @Id
     private Long orgId;
     private String orgName;
-
-    public Organization() {
-    }
-
-    public Organization(Long orgId, String orgName) {
-        this.orgId = orgId;
-        this.orgName = orgName;
-    }
-
-    public Organization(String orgName) {
-        this.orgName = orgName;
-    }
-
-    public Long getOrgId() {
-        return orgId;
-    }
-
-    public void setOrgId(Long orgId) {
-        this.orgId = orgId;
-    }
-
-    public String getOrgName() {
-        return orgName;
-    }
-
-    public void setOrgName(String orgName) {
-        this.orgName = orgName;
-    }
-
-    @Override
-    public String toString() {
-        return "Organization{" +
-                "orgId=" + orgId +
-                ", orgName='" + orgName + '\'' +
-                '}';
-    }
 }
