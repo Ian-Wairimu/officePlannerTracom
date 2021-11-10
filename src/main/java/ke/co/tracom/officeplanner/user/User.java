@@ -7,23 +7,25 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToOne;
+import javax.persistence.*;
 
 @Entity
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@Builder
+//@Builder
 public class User {
     @Id
     private Long userId;
-    private String userName;
+//    @Embedded
+//    private Name userName;
+    private String firstName;
+    private String lastName;
+    private String userEmail;
     private String userPassword;
 
-    @OneToOne
-    private Employee employee;
+
+//    @OneToOne
+//    private Employee employee;
 
 }
