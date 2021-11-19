@@ -2,21 +2,17 @@ package ke.co.tracom.officeplanner.domain.user;
 
 import ke.co.tracom.officeplanner.configuration.AppUserRole;
 import lombok.*;
-import org.hibernate.validator.constraints.Length;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
-import java.util.ArrayList;
-import java.util.List;
+
 
 @Entity
 @Table(name = "users")
+@Data
 @Getter
 @Setter
 @EqualsAndHashCode
-@NoArgsConstructor
-@AllArgsConstructor
 @ToString
 public class User {
     @SequenceGenerator(
@@ -30,15 +26,14 @@ public class User {
     @Column(name = "user_id")
     private Long id;
     @Embedded
-    @Column(name = "user_name")
-    @NotNull
+    @Column(name = "user_name", unique = false, nullable = false)
     @NotBlank(message = "please insert user name")
     private Name names;
-    @Column(name = "user_email", unique = true)
-    @NotNull
+    @Column(name = "user_email", unique = true, nullable = false)
+    @NotBlank(message = "please enter email")
     private String email;
-    @Column(name = "user_password", unique = true)
-    @NotNull
+    @Column(name = "user_password", unique = true, nullable = false)
+    @NotBlank(message = "please enter password")
     private String password;
     @Enumerated(EnumType.STRING)
     private AppUserRole appUserRole;
@@ -49,4 +44,26 @@ public class User {
 
     //constructor with nothing but id
 
+
+    public User() {
+    }
+
+    public User(Long id, Name names, String email, String password, AppUserRole appUserRole, Boolean locked, Boolean enabled) {
+        this.id = id;
+        this.names = names;
+        this.email = email;
+        this.password = password;
+        this.appUserRole = appUserRole;
+        this.locked = locked;
+        this.enabled = enabled;
+    }
+
+    public User(Name names, String email, String password, AppUserRole appUserRole, Boolean locked, Boolean enabled) {
+        this.names = names;
+        this.email = email;
+        this.password = password;
+        this.appUserRole = appUserRole;
+        this.locked = locked;
+        this.enabled = enabled;
+    }
 }

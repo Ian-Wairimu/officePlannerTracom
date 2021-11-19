@@ -1,8 +1,6 @@
 package ke.co.tracom.officeplanner.configuration;
 
 import ke.co.tracom.officeplanner.configuration.Auth.ApplicationUserService;
-import ke.co.tracom.officeplanner.jwt.JwtTokenVerifier;
-import ke.co.tracom.officeplanner.jwt.JwtUsernameAndPasswordAuthFilter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -54,8 +52,6 @@ public class WebConfiguration extends WebSecurityConfigurerAdapter {
                 .sessionManagement()
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
-                .addFilter(new JwtUsernameAndPasswordAuthFilter(authenticationManager()))
-                .addFilterAfter(new JwtTokenVerifier(),JwtUsernameAndPasswordAuthFilter.class)
                 .authorizeRequests()
                 .antMatchers("/", "index", "/css/*", "/js/*").permitAll()
                 .antMatchers("/api/**").hasRole(STUDENT.name())
@@ -65,27 +61,27 @@ public class WebConfiguration extends WebSecurityConfigurerAdapter {
                 .antMatchers(HttpMethod.GET, "management/api/**").hasAnyRole(ADMIN.name(), STUDENT.name())
                 .anyRequest()
                 .authenticated()
-                .and();
-//                //login
-//                .formLogin()
-////                .loginPage().permitAll()
-//                .passwordParameter("password")
-//                .usernameParameter("parameter")
-//                .defaultSuccessUrl("/view", true)
-//                .and()
-//                //remember me
-//                .rememberMe()//valid to 2 weeks
-//                .tokenValiditySeconds((int)TimeUnit.DAYS.toSeconds(21))
-//                .key("something very secured")
-//                .rememberMeParameter("remember-me")
-//                //logout
-//                .and()
-//                .logout() //REQUEST MUST BE A POST WHEN CSRT IS ENABLED
-//                .logoutUrl("/logout")
-//                .clearAuthentication(true)
-//                .invalidateHttpSession(true)
-//                .deleteCookies("", "")
-//                .logoutSuccessUrl("/home");
+                .and()
+                //login
+                .formLogin()
+//                .loginPage().permitAll()
+                .passwordParameter("password")
+                .usernameParameter("parameter")
+                .defaultSuccessUrl("/index", true)
+                .and()
+                //remember me
+                .rememberMe()//valid to 2 weeks
+                .tokenValiditySeconds((int)TimeUnit.DAYS.toSeconds(21))
+                .key("something very secured")
+                .rememberMeParameter("remember-me")
+                //logout
+                .and()
+                .logout() //REQUEST MUST BE A POST WHEN CSRT IS ENABLED
+//                .logoutUrl()
+                .clearAuthentication(true)
+                .invalidateHttpSession(true)
+                .deleteCookies("", "");
+//                .logoutSuccessUrl();
     }
 
 //    @Override
