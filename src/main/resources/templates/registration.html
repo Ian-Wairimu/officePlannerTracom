@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>planner: registration page</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Serif:wght@300&family=Playfair+Display&family=Roboto+Mono:ital,wght@1,100&family=Yuji+Syuku&display=swap" rel="stylesheet">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Serif:wght@300&family=Playfair+Display&family=Roboto+Mono:ital,wght@1,100&family=Yuji+Syuku&display=swap');
+    </style>
+    
+    <link rel="stylesheet" href="css\index.css">
+    <link rel="stylesheet" href="css\login.css">
+    <link rel="stylesheet" href="css\waves.css">
+</head>
+<body>
+    <div class="con-nav">
+        <!-- <a href="" class="logo-link">
+            <img src="img\planner.svg" alt="logo" class="logo">
+        </a> -->
+    <nav class="nav">
+        <ul class="nav-item">
+            <li class="nav-list">
+                <a href="index.html" class="nav-link">Home</a>
+            </li>
+            <li class="nav-list">
+                <a href="" class="nav-link">About</a>
+            </li>
+            <li class="nav-list">
+                <a href="" class="nav-link">Help</a>
+            </li>
+            <li class="nav-list">
+                <a href="" class="nav-link"><i class="far fa-user"> Sign up</i></a>
+            </li>
+        </ul>
+    </nav>
+</div>
+    <form action="" method="post" >
+        <div class="img-cont">
+            <img src="img\tracom-logo-blue.svg" alt="image logo">
+        </div>
+        <br>
+        <hr>
+        <br>
+        <div class="email-input">
+            <input type="email" name="email" id="email" placeholder="Email" required>
+            <i class="fa-solid fa-at icon"></i>
+        </div>
+        <br>
+        <div class="password-input">
+            <input type="password" name="password" id="password" placeholder="Password" required>
+            <i class="fa-thin fa-eye-slash icon" id="togglePassword"></i>
+        </div>
+        <br>
+        <div class="btn-submit">
+            <input type="submit" value="Sign in">
+        </div>
+        <br>
+        <div class="remember-me">
+            <label for="checkbox">
+                <input type="checkbox" name="checkbox" id="checkbox"> Remember me              
+            </label>
+            &nbsp &nbsp &nbsp
+            <a href="" class="forgot-password">Forgot Password?</a>
+        </div>
+        <br>
+        <hr>
+        <br>
+        <p>By continuing, you agree to Planner's <br> <a href="">Conditions of Use</a> and <a href="">Privacy Notice</a>.</p>
+    </form>
+
+    <div>
+    <svg class="waves" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+    viewBox="0 24 150 28" preserveAspectRatio="none" shape-rendering="auto">
+    <defs>
+    <path id="gentle-wave" d="M-160 44c30 0 58-18 88-18s 58 18 88 18 58-18 88-18 58 18 88 18 v44h-352z" />
+    </defs>
+    <g class="parallax">
+    <use xlink:href="#gentle-wave" x="48" y="0" fill="#f2f2f2" />
+    <use xlink:href="#gentle-wave" x="48" y="3" fill="#f2f2f2" />
+    <use xlink:href="#gentle-wave" x="48" y="5" fill="#f2f2f2" />
+    <use xlink:href="#gentle-wave" x="48" y="7" fill="black" />
+    </g>
+    </svg>
+    </div>
+    <!--Waves end-->
+    <script src="script\password.js"></script>
+    <script src="https://kit.fontawesome.com/19ba4afaf1.js" crossorigin="anonymous"></script>
+</body>
+</html>

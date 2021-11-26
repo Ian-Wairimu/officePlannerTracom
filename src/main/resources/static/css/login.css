@@ -1,0 +1,60 @@
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Serif:wght@300&family=Playfair+Display&family=Roboto+Mono:ital,wght@1,100&family=Yuji+Syuku&display=swap');
+
+
+*, *::after, *::before{
+box-sizing: border-box;
+margin: 0px;
+padding: 0px;
+scroll-behavior: smooth;
+}
+body{
+    text-align: center;
+}
+form{
+    display: inline-block;
+    margin-top: 65px;
+    margin-bottom: 5px;
+    font-weight: bold;
+    border: 2px solid black;
+    padding: 40px;
+    justify-content: center;
+}
+.icon{
+    margin-left: -30px;
+}
+input[type=email]{
+    background-color: white;
+    width: 100%;
+    padding: 14px 10px;
+    margin: 6px 0px;
+    box-sizing: border-box;
+    border: 2px black solid;
+    border-radius: 50px;
+}
+input[type=password]{
+    background-color: white;
+    width: 100%;
+    padding: 14px 10px;
+    margin: 6px 0px;
+    box-sizing: border-box;
+    border: 2px black solid;
+    border-radius: 50px;
+}
+input[type=submit]{
+    background-color: white;
+    width: 40%;
+    padding: 8px 10px;
+    margin: 5px 0px;
+    box-sizing: border-box;
+    border: 1px black solid;
+    border-radius: 50px;
+    text-align: center;
+    font-weight: bold;
+}
+input[type=submit]:hover{
+   background-color: black;
+   color: white;
+   border: 1px; 
+   text-align: center;
+}
+
