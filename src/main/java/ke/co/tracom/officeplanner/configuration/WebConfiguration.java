@@ -1,19 +1,21 @@
 package ke.co.tracom.officeplanner.configuration;
 
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
 
 import java.util.concurrent.TimeUnit;
 
-@Configuration
-@EnableWebSecurity
-@EnableGlobalMethodSecurity(prePostEnabled = true) //help us to use the preauthorized command
 public class WebConfiguration extends WebSecurityConfigurerAdapter {
+
+    @Override
+    public void configure(WebSecurity web) throws Exception {
+        web
+                .ignoring()
+                .antMatchers("/resources/**", "/static/**", "/css/**", "/script/**", "/img/**", "/icon/**");
+    }
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
@@ -23,18 +25,24 @@ public class WebConfiguration extends WebSecurityConfigurerAdapter {
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
                 .authorizeRequests()
-                .antMatchers("/", "index", "static/css/**", "static/js/**", "static/images/**" ).permitAll()
+                .antMatchers("/**/*.js", "/**/*.css", "/home/**", "/register").permitAll()
+//                .antMatchers("/api/**").hasRole(STUDENT.name())
+//                .antMatchers(HttpMethod.DELETE, "management/api/**").hasAuthority(USER_WRITE.getAuthentication())
+//                .antMatchers(HttpMethod.POST, "management/api/**").hasAuthority(USER_WRITE.getAuthentication())
+//                .antMatchers(HttpMethod.PUT, "management/api/**").hasAuthority(USER_WRITE.getAuthentication())
+//                .antMatchers(HttpMethod.GET, "management/api/**").hasAnyRole(ADMIN.name(), STUDENT.name())
+                .anyRequest()
+                .authenticated()
                 .and()
                 //login
-                .formLogin()
-//                .loginPage("/login").permitAll()
-                .passwordParameter("password")
-                .usernameParameter("parameter")
-                .defaultSuccessUrl("/home", true)
-                .and()
+                .formLogin().disable()
+//                .loginPage("/loginPage").permitAll()
+//                .passwordParameter("password")
+//                .usernameParameter("parameter")
+//                .defaultSuccessUrl("/view", true)
                 //remember me
                 .rememberMe()//valid to 2 weeks
-                .tokenValiditySeconds((int)TimeUnit.DAYS.toSeconds(21))
+                .tokenValiditySeconds((int) TimeUnit.DAYS.toSeconds(21))
                 .key("something very secured")
                 .rememberMeParameter("remember-me")
                 //logout
@@ -43,7 +51,8 @@ public class WebConfiguration extends WebSecurityConfigurerAdapter {
 //                .logoutUrl("/logout")
                 .clearAuthentication(true)
                 .invalidateHttpSession(true)
-                .deleteCookies("", "")
-                .logoutSuccessUrl("/home");
+                .deleteCookies("", "");
+//                .logoutSuccessUrl("/home");
+
     }
 }

@@ -1,7 +1,13 @@
 package ke.co.tracom.officeplanner.entity.booking;
 
+import ke.co.tracom.officeplanner.entity.organization.Organization;
+import ke.co.tracom.officeplanner.entity.user.User;
+
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
+import java.util.Objects;
 
 
 @Entity
@@ -26,4 +32,129 @@ public class Booking {
     private Date bookingDate;
     @Embedded
     private BookingTime time;
+    @ManyToMany
+    @JoinTable(
+            name = "user_booking",
+            joinColumns = {@JoinColumn(name = "fk_bookings")},
+            inverseJoinColumns = {@JoinColumn(name = "fk_users")}
+    )
+    private List<User> user = new ArrayList<>();
+    @ManyToOne
+    @JoinColumn(name = "fk_organization")
+    private Organization organization;
+
+    public Booking() {
+    }
+
+    public Booking(Long id, String name, String description, Equipment equipment, Date bookingDate, BookingTime time, List<User> user, Organization organization) {
+        this.id = id;
+        this.name = name;
+        this.description = description;
+        this.equipment = equipment;
+        this.bookingDate = bookingDate;
+        this.time = time;
+        this.user = user;
+        this.organization = organization;
+    }
+
+    public Booking(String name, String description, Equipment equipment, Date bookingDate, BookingTime time, List<User> user, Organization organization) {
+        this.name = name;
+        this.description = description;
+        this.equipment = equipment;
+        this.bookingDate = bookingDate;
+        this.time = time;
+        this.user = user;
+        this.organization = organization;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Booking booking = (Booking) o;
+        return Objects.equals(id, booking.id) && Objects.equals(name, booking.name) && Objects.equals(description, booking.description) && Objects.equals(equipment, booking.equipment) && Objects.equals(bookingDate, booking.bookingDate) && Objects.equals(time, booking.time) && Objects.equals(user, booking.user) && Objects.equals(organization, booking.organization);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, name, description, equipment, bookingDate, time, user, organization);
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public Equipment getEquipment() {
+        return equipment;
+    }
+
+    public void setEquipment(Equipment equipment) {
+        this.equipment = equipment;
+    }
+
+    public Date getBookingDate() {
+        return bookingDate;
+    }
+
+    public void setBookingDate(Date bookingDate) {
+        this.bookingDate = bookingDate;
+    }
+
+    public BookingTime getTime() {
+        return time;
+    }
+
+    public void setTime(BookingTime time) {
+        this.time = time;
+    }
+
+    public List<User> getUser() {
+        return user;
+    }
+
+    public void setUser(List<User> user) {
+        this.user = user;
+    }
+
+    public Organization getOrganization() {
+        return organization;
+    }
+
+    public void setOrganization(Organization organization) {
+        this.organization = organization;
+    }
+
+    @Override
+    public String toString() {
+        return "Booking{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", description='" + description + '\'' +
+                ", equipment=" + equipment +
+                ", bookingDate=" + bookingDate +
+                ", time=" + time +
+                ", users=" + user +
+                ", organization=" + organization +
+                '}';
+    }
 }
