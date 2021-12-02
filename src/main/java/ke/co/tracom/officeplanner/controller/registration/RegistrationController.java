@@ -1,6 +1,7 @@
 package ke.co.tracom.officeplanner.controller.registration;
 
 import ke.co.tracom.officeplanner.entity.user.User;
+import ke.co.tracom.officeplanner.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -13,10 +14,13 @@ import javax.validation.Valid;
 
 @Controller
 public class RegistrationController {
+    private final UserRepository userRepository;
     private final UserValidator validator;
+
     @Autowired
-    public RegistrationController(UserValidator validator) {
+    public RegistrationController(UserValidator validator, UserRepository userRepository) {
         this.validator = validator;
+        this.userRepository = userRepository;
     }
 
     @RequestMapping(method = RequestMethod.GET, value = "/register")
@@ -30,6 +34,8 @@ public class RegistrationController {
         validator.validate(user, result);
         if (result.hasErrors()) {
             return "registration";
+        }else {
+            userRepository.save(user);
         }
         return "redirect:/login";
     }

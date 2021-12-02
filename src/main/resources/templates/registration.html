@@ -6,7 +6,13 @@
 </head>
 <body>
 <form th:action="@{/register}" th:object="${user}">
-    <input type="text" th:field="*{name}" placeholder="name"/>
+    <input type="text" th:field="*{name.firstname}" placeholder="firstname"/>
+    <br>
+    <br>
+    <input type="text" th:field="*{name.middleName}" placeholder="middleName"/>
+    <br>
+    <br>
+    <input type="text" th:field="*{name.surname}" placeholder="surname"/>
     <br>
     <br>
     <input type="email" th:field="*{email}" placeholder="email"/>
@@ -16,6 +22,12 @@
     <br>
     <br>
     <input type="text" th:field="*{phone}" placeholder="phone"/>
+    <br>
+    <br>
+    <input type="text" th:field="*{role}" placeholder="role"/>
+    <br>
+    <br>
+    <input type="text" th:field="*{organization}" placeholder="organization"/>
     <br>
     <br>
     <input type="submit"/>
