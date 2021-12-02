@@ -3,6 +3,7 @@ package ke.co.tracom.officeplanner.entity.user;
 import ke.co.tracom.officeplanner.entity.booking.Booking;
 import ke.co.tracom.officeplanner.entity.organization.Organization;
 import ke.co.tracom.officeplanner.entity.user.role.UserRole;
+import org.springframework.security.core.GrantedAuthority;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -29,6 +30,8 @@ public class User implements Serializable {
     private String email;
     @Column(nullable = false, name = "user_password")
     private String password;
+    @Transient
+    private String passwordConfirm;
     @Column(nullable = false)
     private String gender;
     @Column(nullable = false, name = "user_phone")
@@ -42,6 +45,7 @@ public class User implements Serializable {
     private Set<UserRole> role = new HashSet<>();
 
     public User() {
+
     }
 
     public User(Long id, Name name, String email, String password, String gender, String phone, Organization organization, List<Booking> bookings, Set<UserRole> role) {
@@ -66,6 +70,8 @@ public class User implements Serializable {
         this.bookings = bookings;
         this.role = role;
     }
+
+
 
     @Override
     public boolean equals(Object o) {

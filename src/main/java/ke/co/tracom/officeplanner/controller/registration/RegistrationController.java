@@ -3,6 +3,7 @@ package ke.co.tracom.officeplanner.controller.registration;
 import ke.co.tracom.officeplanner.entity.user.User;
 import ke.co.tracom.officeplanner.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -14,29 +15,29 @@ import javax.validation.Valid;
 
 @Controller
 public class RegistrationController {
-    private final UserRepository userRepository;
-    private final UserValidator validator;
-
+    private final UserRepository repository;
     @Autowired
-    public RegistrationController(UserValidator validator, UserRepository userRepository) {
-        this.validator = validator;
-        this.userRepository = userRepository;
+    public RegistrationController(UserRepository repository) {
+        this.repository = repository;
     }
 
     @RequestMapping(method = RequestMethod.GET, value = "/register")
-    public String register(Model model){
+    public String register(final Model model){
         User user = new User();
         model.addAttribute("user", user);
         return "registration";
     }
     @RequestMapping(method = RequestMethod.POST, value = "/register")
-    public String registerUser(@Valid @ModelAttribute("user") User user, BindingResult result){
-        validator.validate(user, result);
+    public String registerUser(final @Valid @ModelAttribute("user") User user, final BindingResult result){
+        BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder(10);
+        String encodedPassword = passwordEncoder.encode(user.getPassword());
+        user.setPassword(encodedPassword);
+
+        repository.save(user);
+
         if (result.hasErrors()) {
             return "registration";
-        }else {
-            userRepository.save(user);
         }
-        return "redirect:/login";
+        return "index";
     }
 }

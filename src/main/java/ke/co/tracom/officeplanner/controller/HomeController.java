@@ -16,4 +16,8 @@ public class HomeController {
     public String login(){
         return "login-page";
     }
+    @RequestMapping(method = RequestMethod.GET, value =  "/dashboard")
+    public String dashboard(){
+        return "dashboard";
+    }
 }
