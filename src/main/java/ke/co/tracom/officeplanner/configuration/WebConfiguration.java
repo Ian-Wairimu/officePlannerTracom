@@ -60,39 +60,9 @@ public class WebConfiguration extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http
                 .csrf().disable()
-                .sessionManagement()
-                .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-                .and()
                 .authorizeRequests()
-                .antMatchers(HttpMethod.GET, "/**/*.css","/loginPage", "/home/**", "/register").permitAll()
-//                .antMatchers("/api/**").hasRole(STUDENT.name())
-//                .antMatchers(HttpMethod.DELETE, "management/api/**").hasAuthority(USER_WRITE.getAuthentication())
-//                .antMatchers(HttpMethod.POST, "management/api/**").hasAuthority(USER_WRITE.getAuthentication())
-//                .antMatchers(HttpMethod.PUT, "management/api/**").hasAuthority(USER_WRITE.getAuthentication())
-//                .antMatchers(HttpMethod.GET, "management/api/**").hasAnyRole(ADMIN.name(), STUDENT.name())
-                .anyRequest()
-                .authenticated()
-                .and()
-                //login
-                .formLogin()
-//                .loginPage("/loginPage").permitAll()
-                .passwordParameter("password")
-                .usernameParameter("parameter")
-                .defaultSuccessUrl("/dashboard", true)
-                //remember me
-                .and()
-                .rememberMe()//valid to 2 weeks
-                .tokenValiditySeconds((int) TimeUnit.DAYS.toSeconds(21))
-                .key("something very secured")
-                .rememberMeParameter("remember-me")
-                //logout
-                .and()
-                .logout() //REQUEST MUST BE A POST WHEN CSRT IS ENABLED
-//                .logoutUrl("/logout")
-                .clearAuthentication(true)
-                .invalidateHttpSession(true)
-                .deleteCookies("", "");
-//                .logoutSuccessUrl("/home");
+                .antMatchers("/**/*.css","/loginPage", "/home/**", "/register").permitAll();
+
 
     }
 }
