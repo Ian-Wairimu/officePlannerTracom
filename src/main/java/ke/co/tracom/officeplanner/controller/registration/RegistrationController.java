@@ -22,18 +22,18 @@ public class RegistrationController {
     private final UserService userService;
 
     @RequestMapping(method = RequestMethod.GET, value = "/register")
-    public String register(final Model model){
-        User user = new User();
-        model.addAttribute("user", user);
+    public String register(Model model){
+        model.addAttribute("user", new User());
         return "registration";
     }
     @RequestMapping(method = RequestMethod.POST, value = "/register")
-    public String registerUser(final @Valid @ModelAttribute("user") User user, final BindingResult result, String siteUrl)throws UnsupportedEncodingException, MessagingException {
+    public String registerUser(@Valid @ModelAttribute("user") User user, BindingResult result, String siteUrl, Model model)throws UnsupportedEncodingException, MessagingException {
+        model.addAttribute("user", user);
         userService.registerUser(user, siteUrl);
-//        if (result.hasErrors()) {
-//            return "registration";
-//        }
-        return "index";
+        if (result.hasErrors()) {
+            return "redirect:index";
+        }
+        return "registration";
     }
     @RequestMapping(method = RequestMethod.POST, value = "/process_register")
     public String processRegister(User user, HttpServletRequest request)throws UnsupportedEncodingException, MessagingException{

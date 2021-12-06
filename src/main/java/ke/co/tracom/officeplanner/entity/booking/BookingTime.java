@@ -1,25 +1,28 @@
 package ke.co.tracom.officeplanner.entity.booking;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
-import java.util.Date;
+import java.sql.Time;
+import java.time.LocalTime;
 import java.util.Objects;
 
 @Embeddable
 public class BookingTime {
-    @Temporal(TemporalType.TIME)
-    @Column(nullable = false, name = "start_time")
-    private Date startTime;
-    @Temporal(TemporalType.TIME)
-    @Column(nullable = false, name = "end_time")
-    private Date endTime;
+//    @Temporal(TemporalType.TIME)
+    @DateTimeFormat(iso = DateTimeFormat.ISO.TIME)
+    @Column(name = "start_time")
+    private LocalTime  startTime;
+//    @Temporal(TemporalType.TIME)
+    @DateTimeFormat(iso = DateTimeFormat.ISO.TIME)
+    @Column(name = "end_time")
+    private LocalTime endTime;
 
     public BookingTime() {
     }
 
-    public BookingTime(Date startTime, Date endTime) {
+    public BookingTime(LocalTime startTime, LocalTime endTime) {
         this.startTime = startTime;
         this.endTime = endTime;
     }
@@ -37,19 +40,19 @@ public class BookingTime {
         return Objects.hash(startTime, endTime);
     }
 
-    public Date getStartTime() {
+    public LocalTime getStartTime() {
         return startTime;
     }
 
-    public void setStartTime(Date startTime) {
+    public void setStartTime(LocalTime startTime) {
         this.startTime = startTime;
     }
 
-    public Date getEndTime() {
+    public LocalTime getEndTime() {
         return endTime;
     }
 
-    public void setEndTime(Date endTime) {
+    public void setEndTime(LocalTime endTime) {
         this.endTime = endTime;
     }
 

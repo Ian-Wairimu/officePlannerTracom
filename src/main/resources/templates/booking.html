@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>booking</title>
+</head>
+<body>
+<form action="#" th:action="@{/booking}" th:object="${booking}" method="post">
+    <input type="text" th:field="*{name}" placeholder="name"/>
+    <br>
+    <br>
+    <input type="text" th:field="*{description}" placeholder="description"/>
+    <br>
+    <br>
+    <input type="date" th:field="*{bookingDate}" placeholder="equipment"/>
+    <br>
+    <br>
+    <input type="time" th:field="*{time.startTime}" placeholder="start time"/>
+    <br>
+    <br>
+    <input type="time" th:field="*{time.endTime}" placeholder="end time"/>
+    <br>
+    <br>
+    <input type="submit" value="booking"/>
+</form>
+</body>
+</html>

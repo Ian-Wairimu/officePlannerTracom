@@ -5,7 +5,7 @@
     <title>registration</title>
 </head>
 <body>
-<form th:action="@{/register}" th:object="${user}">
+<form th:action="@{/register}" th:object="${user}" action="#" method="post">
     <input type="text" th:field="*{name.firstname}" placeholder="firstname"/>
     <br>
     <br>
@@ -16,6 +16,9 @@
     <br>
     <br>
     <input type="email" th:field="*{email}" placeholder="email"/>
+    <br>
+    <br>
+    <input type="text" th:field="*{gender}" placeholder="gender"/>
     <br>
     <br>
     <input type="password" th:field="*{password}" placeholder="password" />

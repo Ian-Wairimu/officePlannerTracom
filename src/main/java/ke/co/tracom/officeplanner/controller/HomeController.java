@@ -12,10 +12,6 @@ public class HomeController {
     public String home(){
         return "index";
     }
-    @RequestMapping(method = RequestMethod.GET, value = "/loginPage")
-    public String login(){
-        return "login-page";
-    }
     @RequestMapping(method = RequestMethod.GET, value =  "/dashboard")
     public String dashboard(){
         return "dashboard";

@@ -2,10 +2,11 @@ package ke.co.tracom.officeplanner.entity.booking;
 
 import ke.co.tracom.officeplanner.entity.organization.Organization;
 import ke.co.tracom.officeplanner.entity.user.User;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import java.util.Objects;
 
@@ -27,9 +28,10 @@ public class Booking {
     private String description;
     @Embedded
     private Equipment equipment;
-    @Temporal(TemporalType.DATE)
-    @Column(nullable = false, name = "booking_date")
-    private Date bookingDate;
+//    @Temporal(TemporalType.DATE)
+    @Column(name = "booking_date")
+    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
+    private LocalDate bookingDate;
     @Embedded
     private BookingTime time;
     @ManyToMany
@@ -46,7 +48,7 @@ public class Booking {
     public Booking() {
     }
 
-    public Booking(Long id, String name, String description, Equipment equipment, Date bookingDate, BookingTime time, List<User> user, Organization organization) {
+    public Booking(Long id, String name, String description, Equipment equipment, LocalDate bookingDate, BookingTime time, List<User> user, Organization organization) {
         this.id = id;
         this.name = name;
         this.description = description;
@@ -57,7 +59,7 @@ public class Booking {
         this.organization = organization;
     }
 
-    public Booking(String name, String description, Equipment equipment, Date bookingDate, BookingTime time, List<User> user, Organization organization) {
+    public Booking(String name, String description, Equipment equipment, LocalDate bookingDate, BookingTime time, List<User> user, Organization organization) {
         this.name = name;
         this.description = description;
         this.equipment = equipment;
@@ -112,11 +114,11 @@ public class Booking {
         this.equipment = equipment;
     }
 
-    public Date getBookingDate() {
+    public LocalDate getBookingDate() {
         return bookingDate;
     }
 
-    public void setBookingDate(Date bookingDate) {
+    public void setBookingDate(LocalDate bookingDate) {
         this.bookingDate = bookingDate;
     }
 
