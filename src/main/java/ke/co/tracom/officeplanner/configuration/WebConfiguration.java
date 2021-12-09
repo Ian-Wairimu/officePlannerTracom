@@ -69,7 +69,7 @@ public class WebConfiguration extends WebSecurityConfigurerAdapter {
                   .authorizeRequests(
                         authorizeRequests ->
                                 authorizeRequests
-                                        .antMatchers("/**/*.css", "/**/*.js", "/", "/loginForm", "/register", "/confirm-set", "/set-password").permitAll()
+                                        .antMatchers("/**/*.css", "/**/*.js", "/", "/loginForm", "/register", "/confirm-account", "/set-password").permitAll()
                                         .antMatchers(GET, "/api/user/**").hasAuthority("ROLE_USER")
                                         .antMatchers(POST, "/api/booking/**").hasAuthority("ROLE_ADMIN")
                                         .anyRequest().authenticated()
@@ -85,6 +85,10 @@ public class WebConfiguration extends WebSecurityConfigurerAdapter {
                                 formLogin
                                         .loginPage("/loginForm")
                                         .permitAll()
+                                        .usernameParameter("email")
+                                        .passwordParameter("password")
+                                        .defaultSuccessUrl("/dashboard")
+                                        .failureUrl("/error")
                 );
         http
                 .logout(

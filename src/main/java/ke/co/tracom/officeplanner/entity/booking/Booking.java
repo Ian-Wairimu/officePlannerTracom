@@ -69,19 +69,6 @@ public class Booking {
         this.organization = organization;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Booking booking = (Booking) o;
-        return Objects.equals(id, booking.id) && Objects.equals(name, booking.name) && Objects.equals(description, booking.description) && Objects.equals(equipment, booking.equipment) && Objects.equals(bookingDate, booking.bookingDate) && Objects.equals(time, booking.time) && Objects.equals(user, booking.user) && Objects.equals(organization, booking.organization);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(id, name, description, equipment, bookingDate, time, user, organization);
-    }
-
     public Long getId() {
         return id;
     }

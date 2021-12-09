@@ -74,11 +74,14 @@
         </div>
         <br>
         <div class="surname">
-            <input type="text" name="first-name" id="surname" th:field="*{name.surname}" autocomplete="off" placeholder="Surname" required>
+            <input type="text" name="surname" id="surname" th:field="*{name.surname}" autocomplete="off" placeholder="Surname" required>
         </div>
     </div>
     <br>
-    <div class="tab">
+    <div class="gender">
+        <input type="text" name="gender" th:field="*{gender}" autocomplete="off" placeholder="Gender" required>
+    </div>
+    <div class="email">
         <input type="email" name="email" id="email" th:field="*{email}" placeholder="Email" autocomplete="off" required>
     </div>
     <br>
@@ -92,16 +95,16 @@
 <!--            <option value="pergamon">Pergamon</option>-->
 <!--        </select>-->
 <!--    </div>-->
-<!--    <br>-->
-<!--    <div class="password">-->
-<!--        <div class="password-first">-->
-<!--            <input type="password" name="password1" th:field="*{password}" placeholder="Password" autocomplete="off" required>-->
-<!--        </div>-->
-<!--        <br>-->
-<!--        <div class="password-second">-->
-<!--            <input type="password" name="password2"  placeholder="Confirm Password" autocomplete="off" required>-->
-<!--        </div>-->
-<!--    </div>-->
+    <br>
+    <div class="password">
+        <div class="password-first">
+            <input type="password" name="password1" th:field="*{password}" placeholder="Password" autocomplete="off" required>
+        </div>
+        <br>
+        <div class="password-second">
+            <input type="password" name="password2"  placeholder="Confirm Password" autocomplete="off" required>
+        </div>
+    </div>
     <br>
     <div class="btn-submit" style="overflow: auto;">
         <input type="submit" value="Sign Up">
