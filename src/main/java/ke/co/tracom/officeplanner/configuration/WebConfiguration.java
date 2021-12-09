@@ -61,20 +61,39 @@ public class WebConfiguration extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        CustomAuthenticationFilter customAuthenticationFilter = new CustomAuthenticationFilter(authenticationManagerBean());
-            customAuthenticationFilter.setFilterProcessesUrl("/api/login");
         http
                 .csrf().disable()
-                .sessionManagement().sessionCreationPolicy(STATELESS)
-                .and()
-                .authorizeRequests()
-                .antMatchers("/index", "/api/login").permitAll()
-                .antMatchers(GET, "/api/user/**").hasAuthority("ROLE_USER")
-               .antMatchers(POST, "/api/booking/**").hasAuthority("ROLE_ADMIN")
-                .anyRequest().authenticated()
-                .and()
-                .addFilter(customAuthenticationFilter)
+                .sessionManagement().sessionCreationPolicy(STATELESS);
+
+          http
+                  .authorizeRequests(
+                        authorizeRequests ->
+                                authorizeRequests
+                                        .antMatchers("/**/*.css", "/**/*.js", "/", "/loginForm", "/register").permitAll()
+                                        .antMatchers(GET, "/api/user/**").hasAuthority("ROLE_USER")
+                                        .antMatchers(POST, "/api/booking/**").hasAuthority("ROLE_ADMIN")
+                                        .anyRequest().authenticated()
+
+                );
+          http
+                .addFilter(new CustomAuthenticationFilter(authenticationManagerBean()))
                 .addFilterBefore(new CustomAuthorizationFilter(), UsernamePasswordAuthenticationFilter.class);
+
+        http
+                .formLogin(
+                        formLogin ->
+                                formLogin
+                                        .loginPage("/loginForm")
+                                        .permitAll()
+                );
+        http
+                .logout(
+                        logout ->
+                                logout
+                                        .logoutUrl("/logout")
+                                        .logoutSuccessUrl("/")
+                                        .invalidateHttpSession(true)
+                );
     }
     @Bean
     @Override

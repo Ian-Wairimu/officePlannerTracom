@@ -1,0 +1,49 @@
+.name {
+    display: flex;
+    flex-direction: row;
+    align-content: space-between;
+}
+.first-name {
+    padding-right: 4px;
+}
+.surname {
+    padding-left: 4px;
+}
+input[type=text]{
+    background-color: white;
+    width: 100%;
+    padding: 14px 10px;
+    margin: 6px 0px;
+    box-sizing: border-box;
+    border: 2px black solid;
+    border-radius: 50px;
+}
+input[type=tel]{
+    background-color: white;
+    width: 100%;
+    padding: 14px 10px;
+    margin: 6px 0px;
+    box-sizing: border-box;
+    border: 2px black solid;
+    border-radius: 50px;
+}
+select {
+    background-color: white;
+    width: 80%;
+    padding: 14px 10px;
+    margin: 6px 0px;
+    box-sizing: border-box;
+    border: 2px black solid;
+    border-radius: 50px;
+}
+.password {
+    display: flex;
+    flex-direction: row;
+    align-content: space-between;
+}
+.password-first {
+    padding-right: 4px;
+}
+.password-second{
+    padding-left: 4px;
+}

@@ -8,17 +8,14 @@ import java.util.Objects;
 public class Name {
     @Column(nullable = false, name = "first_name")
     private String firstname;
-    @Column(nullable = false, name = "middle_name")
-    private String middleName;
     @Column(nullable = false)
     private String surname;
 
     public Name() {
     }
 
-    public Name(String firstname, String middleName, String surname) {
+    public Name(String firstname, String surname) {
         this.firstname = firstname;
-        this.middleName = middleName;
         this.surname = surname;
     }
 
@@ -27,12 +24,12 @@ public class Name {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Name name = (Name) o;
-        return Objects.equals(firstname, name.firstname) && Objects.equals(middleName, name.middleName) && Objects.equals(surname, name.surname);
+        return Objects.equals(firstname, name.firstname) && Objects.equals(surname, name.surname);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(firstname, middleName, surname);
+        return Objects.hash(firstname, surname);
     }
 
     public String getFirstname() {
@@ -41,14 +38,6 @@ public class Name {
 
     public void setFirstname(String firstname) {
         this.firstname = firstname;
-    }
-
-    public String getMiddleName() {
-        return middleName;
-    }
-
-    public void setMiddleName(String middleName) {
-        this.middleName = middleName;
     }
 
     public String getSurname() {
@@ -63,7 +52,6 @@ public class Name {
     public String toString() {
         return "Name{" +
                 "firstname='" + firstname + '\'' +
-                ", middleName='" + middleName + '\'' +
                 ", surname='" + surname + '\'' +
                 '}';
     }

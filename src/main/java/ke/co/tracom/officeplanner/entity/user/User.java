@@ -31,26 +31,17 @@ public class User implements Serializable {
     @Column(nullable = false, name = "user_id")
     private Long id;
     @Embedded
-    @Column(nullable = false, name = "user_name")
     private Name name;
     @Column(nullable = false, name = "user_email")
     private String email;
-    @Column(nullable = false, name = "user_password")
+    @Column(nullable = true, name = "user_password")
     private String password;
     @Column(nullable = false)
     private String gender;
     @Column(nullable = false, name = "user_phone")
     private String phone;
-    @Column(name = "verification_code")
-    private String verificationCode;
     @Column(name = "is_enabled")
     private Boolean enabled;
-    @Column(name = "account_non_locked")
-    private Boolean accountNonLocked;
-    @Column(name = "failed_attempt")
-    private Integer failedAttempt;
-    @Column(name = "lock_time")
-    private Date lockTime;
     @ManyToOne
     @JoinColumn(name = "fk_users")
     private Organization organization;
@@ -59,6 +50,18 @@ public class User implements Serializable {
     @ManyToMany
     private Set<UserRole> role = new HashSet<>();
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        User user = (User) o;
+        return Objects.equals(id, user.id) && Objects.equals(name, user.name) && Objects.equals(email, user.email) && Objects.equals(password, user.password) && Objects.equals(gender, user.gender) && Objects.equals(phone, user.phone) && Objects.equals(enabled, user.enabled) && Objects.equals(organization, user.organization) && Objects.equals(bookings, user.bookings) && Objects.equals(role, user.role);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, name, email, password, gender, phone, enabled, organization, bookings, role);
+    }
 
     public Long getId() {
         return id;
@@ -108,52 +111,12 @@ public class User implements Serializable {
         this.phone = phone;
     }
 
-    public String getVerificationCode() {
-        return verificationCode;
-    }
-
-    public void setVerificationCode(String verificationCode) {
-        this.verificationCode = verificationCode;
-    }
-
-    public boolean isEnabled() {
-        return enabled;
-    }
-
-    public void setEnabled(boolean enabled) {
-        this.enabled = enabled;
-    }
-
     public Boolean getEnabled() {
         return enabled;
     }
 
     public void setEnabled(Boolean enabled) {
         this.enabled = enabled;
-    }
-
-    public Boolean getAccountNonLocked() {
-        return accountNonLocked;
-    }
-
-    public void setAccountNonLocked(Boolean accountNonLocked) {
-        this.accountNonLocked = accountNonLocked;
-    }
-
-    public Integer getFailedAttempt() {
-        return failedAttempt;
-    }
-
-    public void setFailedAttempt(Integer failedAttempt) {
-        this.failedAttempt = failedAttempt;
-    }
-
-    public Date getLockTime() {
-        return lockTime;
-    }
-
-    public void setLockTime(Date lockTime) {
-        this.lockTime = lockTime;
     }
 
     public Organization getOrganization() {
@@ -189,6 +152,7 @@ public class User implements Serializable {
                 ", password='" + password + '\'' +
                 ", gender='" + gender + '\'' +
                 ", phone='" + phone + '\'' +
+                ", enabled=" + enabled +
                 ", organization=" + organization +
                 ", bookings=" + bookings +
                 ", role=" + role +

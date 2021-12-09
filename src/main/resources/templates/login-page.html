@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -24,7 +24,7 @@
     <nav class="nav">
         <ul class="nav-item">
             <li class="nav-list">
-                <a href="index.html" class="nav-link">Home</a>
+                <a th:href="@{/}" class="nav-link">Home</a>
             </li>
             <li class="nav-list">
                 <a href="" class="nav-link">About</a>
@@ -33,26 +33,30 @@
                 <a href="" class="nav-link">Help</a>
             </li>
             <li class="nav-list">
-                <a href="registration.html" class="nav-link"><i class="far fa-user"> Sign up</i></a>
+                <a th:href="@{/register}" class="nav-link"><i class="far fa-user"> Sign up</i></a>
             </li>
         </ul>
     </nav>
 </div>
-    <form action="/login" method="post" >
+    <form th:action="@{/loginForm}" action="/login" method="post">
         <div class="img-cont">
             <img src="img\tracom-logo-blue.svg" alt="image logo">
         </div>
         <br>
         <hr>
         <br>
+        <div th:if="${param.error}">
+            <p class="text_danger"> [[${session.SPRING_SECURITY_LAST_EXCEPTION.message}]] </p>
+        </div>
+        <div th:if="${param.logout}">
+            <p class="text_warning"> you have been logged out </p>
+        </div>
         <div class="email-input">
-            <input type="email" name="email" id="email" placeholder="Email" required>
-            <i class="fa-solid fa-at icon"></i>
+            <input type="email" name="email" id="email" placeholder="Email" autocomplete="off" required>
         </div>
         <br>
         <div class="password-input">
-            <input type="password" name="password" id="password" placeholder="Password" required>
-            <i class="fa-thin fa-eye-slash icon" id="togglePassword"></i>
+            <input type="password" name="password" id="password" placeholder="Password" autocomplete="off" required>
         </div>
         <br>
         <div class="btn-submit">

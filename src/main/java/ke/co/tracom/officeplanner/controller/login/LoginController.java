@@ -1,23 +1,30 @@
 package ke.co.tracom.officeplanner.controller.login;
 
-import org.springframework.security.authentication.AnonymousAuthenticationToken;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
+
+import javax.servlet.http.HttpSession;
 
 @Controller
-public class LoginController {
-
+public class LoginController implements WebMvcConfigurer {
+    @Override
+    public void addViewControllers(ViewControllerRegistry registry) {
+        registry.addViewController("/dashboard").setViewName("dashboard");
+    }
     @RequestMapping(method = RequestMethod.GET, value = "/loginForm")
-    public String loginHandler(Model model){
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        if (authentication == null || authentication instanceof AnonymousAuthenticationToken) {
+    public String loginHandler(HttpSession session){
+        if(session.getAttribute("visited") != null){
+            return "/dashboard";
+        }else {
             return "login-page";
         }
-        return "dashboard";
     }
-
+    @RequestMapping(method = RequestMethod.GET, value = "/loginSuccess")
+    public String loginSuccess(HttpSession session){
+        session.setAttribute("visited", true);
+        return "/dashboard";
+    }
 }

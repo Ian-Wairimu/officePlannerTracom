@@ -1,33 +1,152 @@
-<!doctype html>
-<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="utf-8">
-    <title>registration</title>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>planner: registration page</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Serif:wght@300&family=Playfair+Display&family=Roboto+Mono:ital,wght@1,100&family=Yuji+Syuku&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/css/intlTelInput.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Serif:wght@300&family=Playfair+Display&family=Roboto+Mono:ital,wght@1,100&family=Yuji+Syuku&display=swap');
+    </style>
+
+    <link rel="stylesheet" href="css\index.css">
+    <link rel="stylesheet" href="css\login.css">
+    <link rel="stylesheet" href="css\waves.css">
+    <link rel="stylesheet" href="css\registration.css">
+    <script>
+        function checkPassword(form) {
+            password1 = form.password1.value;
+            password2 = form.password2.value;
+
+            if (password1 == ""){
+                alert("Please enter password");
+            }
+            else if (password2 == ""){
+                alert("Please enter confirm password");
+            }
+            else if (password1 != password2) {
+                alert("\nPassword did not match");
+                return false;
+            }
+            else{
+                alert("Password Match Welcome");
+                return true;
+            }
+        }
+    </script>
 </head>
 <body>
-<form th:action="@{/register}" th:object="${user}" action="#" method="post">
-    <input type="text" th:field="*{name.firstname}" placeholder="firstname"/>
+<div class="con-nav">
+    <!-- <a href="" class="logo-link">
+        <img src="img\planner.svg" alt="logo" class="logo">
+    </a> -->
+    <nav class="nav">
+        <ul class="nav-item">
+            <li class="nav-list">
+                <a th:href="@{/}" class="nav-link">Home</a>
+            </li>
+            <li class="nav-list">
+                <a href="" class="nav-link">About</a>
+            </li>
+            <li class="nav-list">
+                <a href="" class="nav-link">Help</a>
+            </li>
+            <li class="nav-list">
+                <a th:href="@{/loginForm}" class="nav-link"><i class="far fa-user"> Sign in</i></a>
+            </li>
+        </ul>
+    </nav>
+</div>
+<form onsubmit="return checkPassword(this)" th:action="@{/register}" th:object="${user}" action="/register" method="post">
+    <div class="img-cont">
+        <img src="img\tracom-logo-blue.svg" alt="image logo">
+    </div>
     <br>
+    <hr>
     <br>
-    <input type="text" th:field="*{name.middleName}" placeholder="middleName"/>
+    <div class="name">
+        <div class="first-name">
+            <input type="text" name="first-name" th:field="*{name.firstname}" id="first-name" autocomplete="off" placeholder="First Name" required>
+        </div>
+        <br>
+        <div class="surname">
+            <input type="text" name="first-name" id="surname" th:field="*{name.surname}" autocomplete="off" placeholder="Surname" required>
+        </div>
+    </div>
     <br>
+    <div class="tab">
+        <input type="email" name="email" id="email" th:field="*{email}" placeholder="Email" autocomplete="off" required>
+    </div>
     <br>
-    <input type="text" th:field="*{name.surname}" placeholder="surname"/>
+    <div class="phone">
+        <input type="tel" name="phone-no" id="phone" th:field="*{phone}" placeholder="Phone No" autocomplete="off" required>
+    </div>
+<!--    <br>-->
+<!--    <div class="organization">-->
+<!--        <select name="organization" id="">-->
+<!--            <option value="tracom" th:field="*{organization}">Tracom</option>-->
+<!--            <option value="pergamon">Pergamon</option>-->
+<!--        </select>-->
+<!--    </div>-->
+<!--    <br>-->
+<!--    <div class="password">-->
+<!--        <div class="password-first">-->
+<!--            <input type="password" name="password1" th:field="*{password}" placeholder="Password" autocomplete="off" required>-->
+<!--        </div>-->
+<!--        <br>-->
+<!--        <div class="password-second">-->
+<!--            <input type="password" name="password2"  placeholder="Confirm Password" autocomplete="off" required>-->
+<!--        </div>-->
+<!--    </div>-->
     <br>
+    <div class="btn-submit" style="overflow: auto;">
+        <input type="submit" value="Sign Up">
+    </div>
     <br>
-    <input type="email" th:field="*{email}" placeholder="email"/>
+    <hr>
     <br>
-    <br>
-    <input type="text" th:field="*{gender}" placeholder="gender"/>
-    <br>
-    <br>
-    <input type="password" th:field="*{password}" placeholder="password" />
-    <br>
-    <br>
-    <input type="tel" th:field="*{phone}" placeholder="phone"/>
-    <br>
-    <br>
-    <input type="submit"/>
+    <p>By continuing, you agree to Planner's <br> <a href="">Conditions of Use</a> and <a href="">Privacy Notice</a>.</p>
 </form>
+
+<div>
+    <svg class="waves" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+         viewBox="0 24 150 28" preserveAspectRatio="none" shape-rendering="auto">
+        <defs>
+            <path id="gentle-wave" d="M-160 44c30 0 58-18 88-18s 58 18 88 18 58-18 88-18 58 18 88 18 v44h-352z" />
+        </defs>
+        <g class="parallax">
+            <use xlink:href="#gentle-wave" x="48" y="0" fill="#f2f2f2" />
+            <use xlink:href="#gentle-wave" x="48" y="3" fill="#f2f2f2" />
+            <use xlink:href="#gentle-wave" x="48" y="5" fill="#f2f2f2" />
+            <use xlink:href="#gentle-wave" x="48" y="7" fill="black" />
+        </g>
+    </svg>
+</div>
+<!--Waves end-->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/intlTelInput.min.js"></script>
+<script src="script\password.js"></script>
+<script src="https://kit.fontawesome.com/19ba4afaf1.js" crossorigin="anonymous"></script>
 </body>
+<script>
+    const phoneInputField = document.querySelector("#phone");
+    const phoneInput = window.intlTelInput(phoneInputField, {
+        preferredCountries: ["ke", "co", "in", "de"],
+        utilsScript:
+            "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/utils.js",
+    });
+    function getIp(callback) {
+        fetch('https://ipinfo.io/json?token=<your token>', { headers: { 'Accept': 'application/json' }})
+            .then((resp) => resp.json())
+            .catch(() => {
+                return {
+                    country: 'us',
+                };
+            })
+            .then((resp) => callback(resp.country));
+    }
+</script>
 </html>
