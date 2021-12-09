@@ -69,7 +69,7 @@ public class WebConfiguration extends WebSecurityConfigurerAdapter {
                   .authorizeRequests(
                         authorizeRequests ->
                                 authorizeRequests
-                                        .antMatchers("/**/*.css", "/**/*.js", "/", "/loginForm", "/register").permitAll()
+                                        .antMatchers("/**/*.css", "/**/*.js", "/", "/loginForm", "/register", "/confirm-set", "/set-password").permitAll()
                                         .antMatchers(GET, "/api/user/**").hasAuthority("ROLE_USER")
                                         .antMatchers(POST, "/api/booking/**").hasAuthority("ROLE_ADMIN")
                                         .anyRequest().authenticated()

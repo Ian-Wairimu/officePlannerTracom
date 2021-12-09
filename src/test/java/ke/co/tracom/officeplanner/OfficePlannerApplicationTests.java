@@ -27,7 +27,6 @@ class OfficePlannerApplicationTests {
 
         Name name = new Name();
         name.setFirstname("brian");
-        name.setMiddleName("wambui");
         name.setSurname("kings");
         User user = new User();
         user.setName(name);

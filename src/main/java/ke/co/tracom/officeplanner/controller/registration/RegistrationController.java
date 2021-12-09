@@ -51,7 +51,7 @@ public class RegistrationController {
 
             emailSenderService.sendEmail(mailMessage);
             modelAndView.addObject("password", "Check email for link to set password");
-            modelAndView.setViewName("registration-success");
+            modelAndView.setViewName("regisation-success");
         }
         return modelAndView;
     }
