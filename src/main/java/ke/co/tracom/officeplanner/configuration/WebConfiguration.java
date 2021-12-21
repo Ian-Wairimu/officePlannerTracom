@@ -7,6 +7,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
+import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -14,37 +15,30 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
-import javax.sql.DataSource;
 
-import static org.springframework.http.HttpMethod.GET;
-import static org.springframework.http.HttpMethod.POST;
+import java.util.concurrent.TimeUnit;
+
 import static org.springframework.security.config.http.SessionCreationPolicy.STATELESS;
 
 @Configuration
 @EnableWebSecurity
+@EnableGlobalMethodSecurity(prePostEnabled = true)
 public class WebConfiguration extends WebSecurityConfigurerAdapter {
-
-    private final DataSource dataSource;
+    private final UserDetailServiceImpl userDetailService;
     @Autowired
-    public WebConfiguration(DataSource dataSource) {
-        this.dataSource = dataSource;
-    }
-
-    @Bean
-    public UserDetailServiceImpl userDetailsService(){
-        return new UserDetailServiceImpl();
+    public WebConfiguration(UserDetailServiceImpl userDetailService) {
+        this.userDetailService = userDetailService;
     }
 
     @Bean
     public BCryptPasswordEncoder passwordEncoder(){
-        return new BCryptPasswordEncoder();
+        return new BCryptPasswordEncoder(10);
     }
     @Bean
     public DaoAuthenticationProvider authenticationProvider(){
         DaoAuthenticationProvider provider = new DaoAuthenticationProvider();
-        provider.setUserDetailsService(userDetailsService());
+        provider.setUserDetailsService(userDetailService);
         provider.setPasswordEncoder(passwordEncoder());
-
         return provider;
     }
     @Override
@@ -63,15 +57,10 @@ public class WebConfiguration extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http
                 .csrf().disable()
-                .sessionManagement().sessionCreationPolicy(STATELESS);
-
-          http
                   .authorizeRequests(
                         authorizeRequests ->
                                 authorizeRequests
                                         .antMatchers("/**/*.css", "/**/*.js", "/", "/loginForm", "/register", "/confirm-account", "/set-password").permitAll()
-                                        .antMatchers(GET, "/api/user/**").hasAuthority("ROLE_USER")
-                                        .antMatchers(POST, "/api/booking/**").hasAuthority("ROLE_ADMIN")
                                         .anyRequest().authenticated()
 
                 );
@@ -83,20 +72,28 @@ public class WebConfiguration extends WebSecurityConfigurerAdapter {
                 .formLogin(
                         formLogin ->
                                 formLogin
-                                        .loginPage("/loginForm")
-                                        .permitAll()
+                                        .loginPage("/loginForm").permitAll()
                                         .usernameParameter("email")
                                         .passwordParameter("password")
-                                        .defaultSuccessUrl("/dashboard")
+                                        .defaultSuccessUrl("/dashboard", true)
                                         .failureUrl("/error")
+                );
+        http
+                .rememberMe(
+                        rememberMe ->
+                                rememberMe
+                                        .tokenValiditySeconds((int) TimeUnit.DAYS.toSeconds(21))
+                                        .key("something very secured")
+                                        .rememberMeParameter("remember-me")
                 );
         http
                 .logout(
                         logout ->
                                 logout
                                         .logoutUrl("/logout")
-                                        .logoutSuccessUrl("/")
+                                        .clearAuthentication(true)
                                         .invalidateHttpSession(true)
+                                        .logoutSuccessUrl("/")
                 );
     }
     @Bean
