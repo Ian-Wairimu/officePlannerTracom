@@ -18,8 +18,6 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 
 import java.util.concurrent.TimeUnit;
 
-import static org.springframework.security.config.http.SessionCreationPolicy.STATELESS;
-
 @Configuration
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(prePostEnabled = true)
@@ -60,7 +58,7 @@ public class WebConfiguration extends WebSecurityConfigurerAdapter {
                   .authorizeRequests(
                         authorizeRequests ->
                                 authorizeRequests
-                                        .antMatchers("/**/*.css", "/**/*.js", "/", "/loginForm", "/register", "/confirm-account", "/set-password").permitAll()
+                                        .antMatchers("/**/*.css", "/**/*.js", "/", "/loginForm", "/register", "/confirm-account", "/set-password", "/forgotPassword", "/confirm-password-reset").permitAll()
                                         .anyRequest().authenticated()
 
                 );
