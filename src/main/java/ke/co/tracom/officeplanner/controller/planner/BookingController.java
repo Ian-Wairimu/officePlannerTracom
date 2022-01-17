@@ -1,6 +1,7 @@
 package ke.co.tracom.officeplanner.controller.planner;
 
 import ke.co.tracom.officeplanner.entity.booking.Booking;
+import ke.co.tracom.officeplanner.entity.user.User;
 import ke.co.tracom.officeplanner.service.BookingService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -34,6 +35,8 @@ public class BookingController {
         if (result.hasErrors()) {
             return "booking";
         }
-        return "redirect:/dashboard";
+        else {
+            return "redirect:/dashboard";
+        }
     }
 }
