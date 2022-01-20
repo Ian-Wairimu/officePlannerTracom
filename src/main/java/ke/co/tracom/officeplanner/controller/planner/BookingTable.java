@@ -8,6 +8,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 public class BookingTable {
     @RequestMapping(value = "/booking-table", method = RequestMethod.GET)
     public String table(){
-        return "this is a table";
+        return null;
     }
 }
